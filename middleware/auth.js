@@ -1,5 +1,5 @@
-export default function ({ $auth, redirect }) {
-  if (!$auth.loggedIn) {
-    return redirect({ to: '/auth/login' })
+export default function (context) {
+  if (!context.store.getters.isLoggedin) {
+    context.redirect('/login')
   }
 }

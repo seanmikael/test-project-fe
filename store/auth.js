@@ -36,7 +36,7 @@ export const actions = {
       // Store the access token in a cookie
       const accessToken = response.data.access_token
       Cookies.set('access_token', accessToken, { expires: 1 })
-
+      console.log('Access Token:', accessToken)
       commit('SET_LOGGED_IN', true)
       commit('SET_USER', response.data.user)
       commit('SET_ACCESS_TOKEN', accessToken)
@@ -100,11 +100,14 @@ export const actions = {
 
       if (accessToken) {
         // Perform API request to fetch user data using the access token
-        const response = await axios.get('/user', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
+        const response = await axios.get(
+          'http://localhost:8000/api/auth/user',
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
         // Update the state with the fetched user data
         commit('SET_USER', response.data.user)
         commit('SET_LOGGED_IN', true)
@@ -123,11 +126,5 @@ export const actions = {
 export const getters = {
   loggedIn: (state) => state.loggedIn,
   user: (state) => state.user,
-}
-
-export default {
-  state,
-  mutations,
-  actions,
-  getters,
+  isAuthenticated: (state) => state.accessToken !== null,
 }
