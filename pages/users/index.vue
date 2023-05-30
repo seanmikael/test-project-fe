@@ -2,7 +2,7 @@
 Active
 <template>
   <div>
-    <the-content
+    <user-content
       :users-data="usersData"
       @editUser="updateHandler"
       @deleteUser="deleteUser"
@@ -31,7 +31,7 @@ Active
         name="password"
         placeholder="Enter your password"
       />
-      <input type="radio" name="status" value="Active" v-model="data.status" />
+      <input v-model="data.status" type="radio" name="status" value="Active" />
       Active
       <input
         v-model="data.status"

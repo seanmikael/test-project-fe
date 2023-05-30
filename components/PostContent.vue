@@ -14,7 +14,7 @@
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
-                  Email
+                  Content
                 </th>
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
@@ -35,55 +35,45 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in usersData" :key="user.id">
+              <tr v-for="post in postsData" :key="post.id">
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <div class="flex items-center">
                     <div class="ml-3">
                       <p class="text-gray-900 whitespace-no-wrap">
-                        {{ user.name }}
+                        {{ post.name }}
                       </p>
                     </div>
                   </div>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p class="text-gray-900 whitespace-no-wrap">
-                    {{ user.email }}
+                    {{ post.content }}
                   </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p class="text-gray-900 whitespace-no-wrap">
-                    {{ user.created_at }}
+                    {{ post.created_at | formatDate }}
                   </p>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <span
-                    :class="{
-                      'relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight':
-                        user.status === 'Active',
-                      'relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight':
-                        user.status === 'Inactive',
-                    }"
+                    class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
                   >
                     <span
                       aria-hidden
-                      :class="{
-                        'absolute inset-0 bg-green-200 opacity-50 rounded-full':
-                          user.status === 'Active',
-                        'absolute inset-0 bg-red-200 opacity-50 rounded-full':
-                          user.status === 'Inactive',
-                      }"
+                      class="'absolute inset-0 bg-green-200 opacity-50 rounded-full'"
                     ></span>
-                    <span class="relative"> {{ user.status }}</span>
+                    <span class="relative"> {{ post.status }}</span>
                   </span>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <button
-                    @click="$emit('editUser', user)"
+                    @click="$emit('editPost', post)"
                     class="relative mr-4"
                   >
                     Edit
                   </button>
-                  <button @click="$emit('deleteUser', user)" class="relative">
+                  <button @click="$emit('deletePost', post)" class="relative">
                     Delete
                   </button>
                 </td>
@@ -119,8 +109,9 @@
 <script>
 export default {
   name: 'TheContent',
+
   props: {
-    usersData: {
+    postsData: {
       type: Array,
       required: true,
     },

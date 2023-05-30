@@ -37,7 +37,7 @@
         </li>
         <li>
           <nuxt-link
-            to="users"
+            to="../users"
             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
           >
             <span class="inline-flex justify-center items-center ml-4">
@@ -61,7 +61,7 @@
         </li>
         <li>
           <nuxt-link
-            to="#"
+            to="../posts"
             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
           >
             <span class="inline-flex justify-center items-center ml-4">
@@ -116,7 +116,7 @@
         </li>
         <li>
           <nuxt-link
-            to="#"
+            to="/users/create"
             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
           >
             <span class="inline-flex justify-center items-center ml-4">
@@ -140,7 +140,7 @@
         </li>
         <li>
           <nuxt-link
-            to="#"
+            to="../posts/create"
             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
           >
             <span class="inline-flex justify-center items-center ml-4">
@@ -284,7 +284,7 @@ export default {
     async handleLogout() {
       await this.logout()
       // Redirect to the login page
-      this.$router.push('./auth/login')
+      this.$router.push('../auth/login')
     },
     ...mapActions('auth', ['logout']),
   },
