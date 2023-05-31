@@ -3,6 +3,16 @@
     <h1 class="mb-4">This is the create posts page</h1>
     <form @submit.prevent="createPost">
       <textarea v-model="content" rows="4" cols="50"></textarea>
+      <label for="category">Choose a category:</label>
+      <select v-model="category" name="category">
+        <option
+          v-for="categoryOption in categoriesData"
+          :key="categoryOption.id"
+          :value="categoryOption.id"
+        >
+          {{ categoryOption.category_name }}
+        </option>
+      </select>
       <button @click="publishPost" type="submit">Publish</button>
       <button @click="savePost" type="submit">Draft</button>
     </form>
@@ -17,13 +27,18 @@ export default {
   data() {
     return {
       content: '',
-      status: '', // Track the status of the post
+      status: '',
+      category: '',
+      categoriesData: [],
     }
+  },
+  mounted() {
+    this.getCategories()
   },
   methods: {
     publishPost() {
       this.status = 'Publish'
-      console.log(this.accessToken)
+      console.log('Category ID:', this.category)
     },
     savePost() {
       this.status = 'Draft'
@@ -37,6 +52,7 @@ export default {
           {
             content: this.content,
             status: this.status,
+            category_id: this.category,
           },
           {
             headers: {
@@ -54,6 +70,15 @@ export default {
         } else {
           console.log('Post failed to submit')
         }
+      } catch (err) {
+        console.error(err)
+      }
+    },
+
+    async getCategories() {
+      try {
+        const res = await axios.get('http://localhost:8000/api/categories')
+        this.categoriesData = res.data
       } catch (err) {
         console.error(err)
       }

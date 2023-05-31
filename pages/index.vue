@@ -1,6 +1,5 @@
 <template>
   <div>
-    <the-content />
     <p v-if="loggedIn">
       {{ user.email }}
     </p>

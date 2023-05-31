@@ -9,18 +9,9 @@
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
-                  Name
+                  Category Name
                 </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                >
-                  Content
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                >
-                  Category
-                </th>
+
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
@@ -30,60 +21,38 @@
                 <th
                   class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                 >
-                  Status
-                </th>
-                <th
-                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
-                >
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="post in postsData" :key="post.id">
+              <tr v-for="category in categoriesData" :key="category.id">
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <div class="flex items-center">
                     <div class="ml-3">
                       <p class="text-gray-900 whitespace-no-wrap">
-                        {{ post.user.name }}
+                        {{ category.category_name }}
                       </p>
                     </div>
                   </div>
                 </td>
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <p class="text-gray-900 whitespace-no-wrap">
-                    {{ post.content }}
+                    {{ category.created_at | formatDate }}
                   </p>
                 </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    {{ post.category.category_name }}
-                  </p>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <p class="text-gray-900 whitespace-no-wrap">
-                    {{ post.created_at | formatDate }}
-                  </p>
-                </td>
-                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <span
-                    class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-                  >
-                    <span
-                      aria-hidden
-                      class="'absolute inset-0 bg-green-200 opacity-50 rounded-full'"
-                    ></span>
-                    <span class="relative"> {{ post.status }}</span>
-                  </span>
-                </td>
+
                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                   <button
-                    @click="$emit('editPost', post)"
+                    @click="$emit('editCategory', category)"
                     class="relative mr-4"
                   >
                     Edit
                   </button>
-                  <button @click="$emit('deletePost', post)" class="relative">
+                  <button
+                    @click="$emit('deleteCategory', category)"
+                    class="relative"
+                  >
                     Delete
                   </button>
                 </td>
@@ -119,12 +88,12 @@
 <script>
 export default {
   name: 'TheContent',
+
   props: {
-    postsData: {
+    categoriesData: {
       type: Array,
       required: true,
     },
   },
-  methods: {},
 }
 </script>
