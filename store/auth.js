@@ -58,7 +58,7 @@ export const actions = {
       commit('CLEAR_ACCESS_TOKEN')
 
       // Remove the access token cookie
-      Cookies.remove('access_token')
+      Cookies.remove('access_token', { path: '' })
     } catch (error) {
       console.error(error)
     }

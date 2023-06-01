@@ -7,9 +7,10 @@ Active
       @editUser="updateHandler"
       @deleteUser="deleteUser"
     />
-    <p v-if="loggedIn">
+    <p v-if="user && loggedIn">
       {{ user.email }}
     </p>
+    <p v-else>Loading user data...</p>
     <p>This is the Users Index Page</p>
 
     <form @submit.prevent="updateUser">
