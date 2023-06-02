@@ -1,11 +1,10 @@
 <template>
   <div>
     <div>
-      <h1>This is categories index page</h1>
       <category-content
         :categories-data="categoriesData"
-        @deleteCategory="deleteCategory"
-        @editCategory="updateHandler"
+        @deleteHandler="deleteCategory"
+        @updateHandler="updateHandler"
       />
     </div>
     <form @submit.prevent="editCategory">

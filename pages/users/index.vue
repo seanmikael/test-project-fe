@@ -4,8 +4,8 @@ Active
   <div>
     <user-content
       :users-data="usersData"
-      @editUser="updateHandler"
-      @deleteUser="deleteUser"
+      @updateHandler="updateHandler"
+      @deleteHandler="deleteUser"
     />
     <p v-if="user && loggedIn">
       {{ user.email }}

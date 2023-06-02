@@ -1,16 +1,9 @@
 <template>
   <div>
-    <p>This is the post index page</p>
     <post-content
       :posts-data="postsData"
-      @deletePost="deletePost"
-      @editPost="updateHandler"
-    />
-
-    <post-content-draft
-      :posts-data-draft="draftsData"
-      @deletePost="deletePost"
-      @editPost="updateHandler"
+      @updateHandler="updateHandler"
+      @deleteHandler="deletePost"
     />
 
     <form @submit.prevent="updatePost">
@@ -42,7 +35,6 @@ export default {
     return {
       id: '',
       postsData: [],
-      draftsData: [],
       categoriesData: [],
       content: '',
       category: '',
@@ -51,15 +43,14 @@ export default {
   },
   mounted() {
     this.getPosts()
-    this.getDraftPosts()
     this.getCategories()
   },
   methods: {
-    updateHandler(data) {
-      this.id = data.id
-      this.content = data.content
-      this.category = data.category.category_name
-      this.status = data.status
+    updateHandler(post) {
+      this.id = post.id
+      this.content = post.content
+      this.category = post.category.category_name
+      this.status = post.status
     },
 
     async updatePost() {
@@ -99,19 +90,6 @@ export default {
       }
     },
 
-    async getDraftPosts() {
-      try {
-        const res = await axios.get(
-          'http://localhost:8000/api/posts?status=Draft'
-        )
-        const posts = res.data.posts
-        this.draftsData = posts
-
-        console.log(res.data)
-      } catch (err) {
-        console.error(err)
-      }
-    },
     async getCategories() {
       try {
         const res = await axios.get('http://localhost:8000/api/categories')

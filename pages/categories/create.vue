@@ -1,10 +1,28 @@
 <template>
   <div>
-    <h1>This is categories create page</h1>
     <form @submit.prevent="createCategory">
-      <label for="category"> Name:</label>
-      <input v-model="category" type="text" />
-      <button type="submit">Create</button>
+      <div class="grid gap-y-4">
+        <!-- Form Group -->
+        <div>
+          <label for="category" class="block text-sm mb-2">Email address</label>
+          <div class="relative">
+            <input
+              v-model="category"
+              type="text"
+              name="category"
+              class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500"
+            />
+          </div>
+        </div>
+        <!-- End Form Group -->
+
+        <button
+          type="submit"
+          class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
+        >
+          Create Category
+        </button>
+      </div>
     </form>
   </div>
 </template>

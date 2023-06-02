@@ -1,6 +1,6 @@
 <template>
   <!-- parent (all)-->
-  <div class="flex flex-row m-0 w-full">
+  <div class="flex flex-row m-0 w-full h-screen">
     <!-- child (sidebar)-->
     <the-side-bar />
     <!-- second parent -->

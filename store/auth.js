@@ -109,7 +109,8 @@ export const actions = {
           }
         )
         // Update the state with the fetched user data
-        commit('SET_USER', response.data.user)
+        commit('SET_USER', response.data)
+        console.log('Response data:', response.data)
         commit('SET_LOGGED_IN', true)
       } else {
         // No access token found, user is not logged in
