@@ -1,11 +1,11 @@
 <template>
   <table
-    class="min-w-full divide-y divide-gray-200"
+    class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
     id="pills-on-gray-color-3"
     role="tabpanel"
     aria-labelledby="pills-on-gray-color-item-3"
   >
-    <thead class="bg-gray-50">
+    <thead class="bg-gray-50 dark:bg-gray-700">
       <tr>
         <th scope="col" class="py-3 px-4 pr-0">
           <div class="flex items-center h-5">
@@ -29,7 +29,7 @@
           scope="col"
           class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
         >
-          Content
+          Title
         </th>
         <th
           scope="col"
@@ -57,7 +57,7 @@
         </th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-200">
+    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
       <tr v-for="post in postsData" :key="post.id">
         <td class="py-3 pl-4">
           <div class="flex items-center h-5">
@@ -77,7 +77,12 @@
           {{ post.user.name }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-          {{ post.content }}
+          <nuxt-link
+            :to="`/posts/post/${post.id}`"
+            class="text-sm text-blue-600 decoration-2 hover:cursor-pointer hover:underline dark:text-blue-500"
+          >
+            {{ post.title }}</nuxt-link
+          >
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
           {{ post.category.category_name }}
@@ -97,7 +102,11 @@
           </span>
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-          <button @click="$emit('updatePost', post)" class="text-blue-500 mr-4">
+          <button
+            @click="$emit('updatePost', post)"
+            class="text-blue-500 mr-4"
+            data-hs-overlay="#hs-medium-modal"
+          >
             Edit
           </button>
           <button @click="$emit('deletePost', post)" class="text-blue-500">

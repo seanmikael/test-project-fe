@@ -4,7 +4,9 @@
       <div class="grid gap-y-4">
         <!-- Form Group -->
         <div>
-          <label for="category" class="block text-sm mb-2">Email address</label>
+          <label for="category" class="block text-sm mb-2"
+            >Category Name:
+          </label>
           <div class="relative">
             <input
               v-model="category"

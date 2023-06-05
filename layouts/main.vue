@@ -1,18 +1,9 @@
 <template>
-  <!-- parent (all)-->
-  <div class="flex flex-row m-0 w-full h-screen">
-    <!-- child (sidebar)-->
-    <the-side-bar />
-    <!-- second parent -->
-    <div class="flex flex-grow flex-wrap">
-      <!-- child (header)-->
-      <div class="h-20 w-full">
-        <the-header />
-      </div>
-      <!-- child (content)-->
-      <div class="flex h-full mx-auto pt-4">
-        <nuxt />
-      </div>
+  <div class="bg-gray-100">
+    <the-navbar />
+    <the-sidebar />
+    <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 min-h-[75rem]">
+      <nuxt />
     </div>
   </div>
 </template>

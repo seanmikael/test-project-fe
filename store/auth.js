@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 export const state = () => ({
   loggedIn: false,
   user: null,
-  accessToken: null,
+  accessToken: Cookies.get('access_token') || null,
 })
 
 export const mutations = {
@@ -14,9 +14,12 @@ export const mutations = {
   SET_USER(state, user) {
     state.user = user
   },
+
   SET_ACCESS_TOKEN(state, accessToken) {
     state.accessToken = accessToken
+    Cookies.set('access_token', accessToken, { expires: 1 }) // Store access token in the cookie
   },
+
   CLEAR_ACCESS_TOKEN(state) {
     state.accessToken = null
   },
@@ -35,7 +38,7 @@ export const actions = {
 
       // Store the access token in a cookie
       const accessToken = response.data.access_token
-      Cookies.set('access_token', accessToken, { expires: 1 })
+      Cookies.set('access_token', accessToken, { expires: 3600 })
       console.log('Access Token:', accessToken)
       commit('SET_LOGGED_IN', true)
       commit('SET_USER', response.data.user)
@@ -43,6 +46,31 @@ export const actions = {
     } catch (error) {
       console.error(error)
     }
+  },
+
+  nuxtServerInit({ commit, state }, { req }) {
+    return new Promise((resolve, reject) => {
+      // Check if the access token is already set in the state
+      if (state.accessToken) {
+        resolve()
+        return
+      }
+
+      const accessToken = req.headers.cookie
+        ?.split(';')
+        .find((cookie) => cookie.trim().startsWith('access_token='))
+
+      if (accessToken) {
+        const value = accessToken.split('=')[1]
+        commit('SET_ACCESS_TOKEN', value)
+      } else {
+        // If access token is not found, clear it from the state and the cookie
+        commit('CLEAR_ACCESS_TOKEN')
+        Cookies.remove('access_token')
+      }
+
+      resolve()
+    })
   },
 
   async logout({ commit, state, dispatch }) {
@@ -58,14 +86,13 @@ export const actions = {
       commit('CLEAR_ACCESS_TOKEN')
 
       // Remove the access token cookie
-      Cookies.remove('access_token', { path: '' })
+      Cookies.remove('access_token', { path: '' }) // Remove cookie from the root path
     } catch (error) {
       console.error(error)
     }
   },
 
   // ...
-
   async refreshAccessToken({ commit }) {
     try {
       // Get the access token from the cookie
@@ -127,5 +154,5 @@ export const actions = {
 export const getters = {
   loggedIn: (state) => state.loggedIn,
   user: (state) => state.user,
-  isAuthenticated: (state) => state.accessToken !== null,
+  isAuthenticated: (state) => state.accessToken != null,
 }

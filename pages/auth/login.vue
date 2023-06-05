@@ -8,9 +8,14 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'LoginPage',
   computed: {
     ...mapGetters('auth', ['loggedIn', 'user']),
+  },
+  created() {
+    // Check if the user is already logged in
+    if (this.loggedIn) {
+      this.$router.push('/') // Redirect to home page if already logged in
+    }
   },
   methods: {
     async login(credentials) {

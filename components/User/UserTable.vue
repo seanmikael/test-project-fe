@@ -1,13 +1,13 @@
 <template>
   <table
-    class="min-w-full divide-y divide-gray-200"
+    class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
     id="pills-on-gray-color-3"
     role="tabpanel"
     aria-labelledby="pills-on-gray-color-item-3"
   >
-    <thead class="bg-gray-50">
+    <thead class="bg-gray-50 dark:bg-slate-800">
       <tr>
-        <th scope="col" class="py-3 px-4 pr-0">
+        <th scope="col" class="pl-6 py-3 text-left">
           <div class="flex items-center h-5">
             <input
               id="hs-table-pagination-checkbox-all"
@@ -99,7 +99,11 @@
           </span>
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-          <button @click="$emit('updateUser', user)" class="text-blue-500 mr-4">
+          <button
+            @click="$emit('updateUser', user)"
+            class="text-blue-500 mr-4"
+            data-hs-overlay="#hs-medium-modal"
+          >
             Edit
           </button>
           <button @click="$emit('deleteUser', user)" class="text-blue-500">
