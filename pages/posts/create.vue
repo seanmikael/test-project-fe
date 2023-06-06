@@ -132,6 +132,7 @@ import Cookies from 'js-cookie'
 import { mapGetters } from 'vuex'
 export default {
   layout: 'main',
+  middleware: ['check', 'protect'],
   data() {
     return {
       count: 0,
@@ -144,7 +145,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('auth', ['loggedIn', 'user']),
+    ...mapGetters(['user']),
   },
 
   mounted() {

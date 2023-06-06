@@ -222,32 +222,22 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'TheHeader',
   async asyncData({ store }) {
-    await store.dispatch('auth/fetchUser')
+    await store.dispatch('fetchUser')
   },
 
   computed: {
-    ...mapGetters('auth', ['loggedIn', 'user']),
+    ...mapGetters(['user']),
   },
   methods: {
-    async handleLogout() {
-      try {
-        await this.logout()
-        // Clear local session data
-        // ...
-        // Redirect to the login page using named route or path constant
-        this.$router.push('../auth/login')
-      } catch (error) {
-        // Handle error
-        console.error('Logout failed:', error)
-        // Display error message or perform necessary actions
-      }
+    handleLogout() {
+      this.$store.dispatch('logout')
+      this.$router.push({ name: 'auth-login' })
     },
-    ...mapActions('auth', ['logout']),
   },
 }
 </script>

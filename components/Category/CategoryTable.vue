@@ -67,15 +67,15 @@
 
         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
           <button
-            @click="$emit('updateCategory', category)"
             class="text-blue-500 mr-4"
-            data-hs-overlay="#hs-slide-up-animation-modal"
+            data-hs-overlay="#hs-modal-update"
+            @click="$emit('updateCategory', category)"
           >
             Edit
           </button>
           <button
+            class="text-red-500"
             @click="$emit('deleteCategory', category)"
-            class="text-blue-500"
           >
             Delete
           </button>

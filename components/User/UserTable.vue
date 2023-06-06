@@ -100,13 +100,13 @@
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
           <button
-            @click="$emit('updateUser', user)"
             class="text-blue-500 mr-4"
-            data-hs-overlay="#hs-medium-modal"
+            data-hs-overlay="#hs-modal-update"
+            @click="$emit('updateUser', user)"
           >
             Edit
           </button>
-          <button @click="$emit('deleteUser', user)" class="text-blue-500">
+          <button class="text-red-500" @click="$emit('deleteUser', user)">
             Delete
           </button>
         </td>

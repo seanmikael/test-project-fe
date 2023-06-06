@@ -213,6 +213,7 @@
 import axios from 'axios'
 export default {
   layout: 'main',
+  middleware: ['check', 'protect'],
   data() {
     return {
       count: 0,

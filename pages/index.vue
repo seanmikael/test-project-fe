@@ -11,13 +11,13 @@ import { mapGetters } from 'vuex'
 
 export default {
   layout: 'main',
-  // middleware: 'protect',
+  middleware: ['check', 'protect'],
   async asyncData({ store }) {
-    await store.dispatch('auth/fetchUser')
+    await store.dispatch('fetchUser')
   },
 
   computed: {
-    ...mapGetters('auth', ['loggedIn', 'user']),
+    ...mapGetters(['loggedIn', 'user']),
   },
 }
 </script>
