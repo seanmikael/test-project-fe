@@ -1,5 +1,3 @@
-<input type="radio" name="active" value="Active" />
-Active
 <template>
   <div>
     <div
@@ -8,21 +6,24 @@ Active
       <user-content
         :users-data="usersData"
         @updateHandler="updateHandler"
-        @deleteHandler="deleteUser"
+        @deleteHandler="deleteHandler"
       />
     </div>
 
     <user-create-modal />
     <user-update-modal :user-data="userData" />
+    <user-delete-modal :user-data="userData" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import axios from 'axios'
+
 export default {
   layout: 'main',
   middleware: ['check', 'protect'],
+
   data() {
     return {
       usersData: [],
@@ -57,21 +58,9 @@ export default {
       console.log(this.userData)
     },
 
-    async deleteUser(user) {
-      try {
-        const res = await axios.delete(
-          `http://localhost:8000/api/user/${user.id}`
-        )
-
-        if (res.status === 200 || res.status === 204) {
-          console.log('User deleted')
-          window.location.reload()
-        } else {
-          console.log('User deletion failed')
-        }
-      } catch (error) {
-        console.error(error)
-      }
+    deleteHandler(user) {
+      this.userData = user
+      console.log(this.userData)
     },
   },
 }

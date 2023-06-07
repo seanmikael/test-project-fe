@@ -106,7 +106,11 @@
           >
             Edit
           </button>
-          <button class="text-red-500" @click="$emit('deleteUser', user)">
+          <button
+            class="text-red-500"
+            data-hs-overlay="#hs-danger-alert"
+            @click="$emit('deleteUser', user)"
+          >
             Delete
           </button>
         </td>

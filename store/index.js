@@ -111,7 +111,6 @@ const createStore = () => {
       async logout(vuexContext) {
         // Refresh the access token
         await vuexContext.dispatch('refreshAccessToken')
-
         // Make an HTTP request to logout
         try {
           await axios.post('http://localhost:8000/api/auth/logout', null, {
