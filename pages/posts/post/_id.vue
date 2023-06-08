@@ -145,7 +145,7 @@
               </button>
             </div>
 
-            <div class="buttons flex" v-if="edit == true">
+            <div v-if="edit == true" class="buttons flex">
               <button
                 class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto"
                 type="submit"
@@ -217,6 +217,14 @@
             >
               {{ status }}
             </span>
+            <div class="flex flex-col mb-5">
+              <h3 class="block text-sm font-medium mb-2 dark:text-white">
+                Image
+              </h3>
+              <div class="post-image">
+                <img :src="getImageUrl(image_path)" alt="Post Image" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -241,6 +249,7 @@ export default {
       name: '',
       created_at: null,
       categoriesData: [],
+      image_path: '',
     }
   },
   created() {
@@ -248,6 +257,12 @@ export default {
     this.getCategories()
   },
   methods: {
+    getImageUrl(imagePath) {
+      const baseUrl = 'http://localhost:8000/storage'
+      const imageUrl = `${baseUrl}/${imagePath}`
+      console.log(imageUrl)
+      return imageUrl
+    },
     async getPosts() {
       try {
         const res = await axios.get(
@@ -260,7 +275,9 @@ export default {
         this.status = posts.status
         this.name = posts.user.name
         this.created_at = posts.created_at
+        this.image_path = posts.image_path
         console.log(res.data)
+        console.log(res.data.post.image_path)
       } catch (err) {
         console.error(err)
       }

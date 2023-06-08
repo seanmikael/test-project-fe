@@ -75,6 +75,7 @@
           </button>
           <button
             class="text-red-500"
+            data-hs-overlay="#hs-danger-alert"
             @click="$emit('deleteCategory', category)"
           >
             Delete

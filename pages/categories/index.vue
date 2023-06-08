@@ -5,13 +5,14 @@
     >
       <category-content
         :categories-data="categoriesData"
-        @deleteHandler="deleteCategory"
+        @deleteHandler="deleteHandler"
         @updateHandler="updateHandler"
       />
     </div>
 
     <category-create-modal />
     <category-update-modal :category-data="categoryData" />
+    <category-delete-modal :delete-data="{ id: deleteData }" />
   </div>
 </template>
 
@@ -26,6 +27,7 @@ export default {
       category_name: '',
       id: '',
       categoryData: {},
+      deleteData: '',
     }
   },
   mounted() {
@@ -41,21 +43,8 @@ export default {
       }
     },
 
-    async deleteCategory(data) {
-      try {
-        const res = await axios.delete(
-          `http://localhost:8000/api/categories/${data.id}`
-        )
-
-        if (res.status === 200) {
-          console.log('User deleted')
-          window.location.reload()
-        } else {
-          console.log('User deletion failed')
-        }
-      } catch (error) {
-        console.error(error)
-      }
+    deleteHandler(data) {
+      this.deleteData = data.id
     },
 
     updateHandler(data) {

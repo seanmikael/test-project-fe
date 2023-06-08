@@ -57,12 +57,11 @@
               <h3
                 class="mb-2 text-xl font-bold text-gray-800 dark:text-gray-200"
               >
-                Delete Personal Account
+                Delete Category
               </h3>
               <p class="text-gray-500">
-                Permanently remove the account and all of its contents from the
-                platform. This action is irreversible, so please continue with
-                caution.
+                Permanently remove this category from the platform. This action
+                is irreversible, so please continue with caution.
               </p>
             </div>
           </div>
@@ -79,8 +78,8 @@
             Cancel
           </button>
           <a
-            class="py-2.5 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent hover:cursor-pointer font-semibold bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-            @click="deleteUser"
+            class="py-2.5 px-4 inline-flex justify-center hover:cursor-pointer items-center gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+            @click="deleteCategory"
           >
             Delete
           </a>
@@ -94,7 +93,7 @@
 import axios from 'axios'
 export default {
   props: {
-    userData: {
+    deleteData: {
       type: Object,
       required: true,
     },
@@ -102,28 +101,24 @@ export default {
   computed: {
     data() {
       return {
-        id: this.userData.id,
+        id: this.deleteData.id,
       }
     },
   },
   methods: {
-    async deleteUser() {
+    async deleteCategory() {
       try {
         const res = await axios.delete(
-          `http://localhost:8000/api/user/${this.data.id}`
+          `http://localhost:8000/api/categories/${this.data.id}`
         )
 
-        // Handle the response based on your application's logic
         if (res.status === 200) {
-          // Update was successful
-          console.log('User updated successfully')
+          console.log('Category deleted')
           window.location.reload()
         } else {
-          // Update failed
-          console.log('User update failed')
+          console.log('Category deletion failed')
         }
       } catch (error) {
-        // Handle any errors that occurred during the API call
         console.error(error)
       }
     },
