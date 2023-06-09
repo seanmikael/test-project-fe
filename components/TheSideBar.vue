@@ -113,6 +113,7 @@
           <li>
             <nuxt-link
               :to="{ name: 'users' }"
+              exact-active-class="bg-gray-700"
               class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-md hover:bg-gray-800 hover:text-white-300"
             >
               <svg
@@ -220,6 +221,7 @@
           <li>
             <nuxt-link
               :to="{ name: 'categories' }"
+              exact-active-class="bg-gray-700"
               class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-md hover:bg-gray-800 hover:text-white-300"
             >
               <svg
