@@ -94,7 +94,7 @@ import axios from 'axios'
 export default {
   props: {
     deleteData: {
-      type: String,
+      type: Object,
       required: true,
     },
   },

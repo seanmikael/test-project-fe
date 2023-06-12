@@ -129,7 +129,10 @@
                 Publish
               </button>
             </div>
-            <div v-if="status === 'Publish' && !edit" class="self-end">
+            <div
+              v-if="status === 'Publish' && !edit"
+              class="flex justify-end align-bottom items-start"
+            >
               <button
                 class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500"
                 @click="editState"
@@ -138,7 +141,7 @@
                 Edit
               </button>
             </div>
-            <div v-if="edit" class="flex self-end">
+            <div v-if="edit" class="flex justify-end">
               <button
                 class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500"
                 type="submit"
@@ -250,91 +253,93 @@
                 class="block text-sm font-medium mb-2 dark:text-white"
                 >Category</label
               >
-              <select
-                v-model="categoryEdit"
-                class="py-2 px-3 pr-9 block w-48 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-                name="category"
-              >
-                <option :value="category.id" disabled selected>
-                  {{ category || 'Select a category' }}
-                </option>
+              <div class="flex flex-row">
+                <select
+                  v-model="categoryEdit"
+                  class="py-2 px-3 pr-9 block w-48 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                  name="category"
+                >
+                  <option :value="category.id" disabled selected>
+                    {{ category || 'Select a category' }}
+                  </option>
 
-                <option
-                  v-for="categoryOption in categoriesData"
-                  :key="categoryOption.id"
-                  :value="categoryOption.id"
-                >
-                  {{ categoryOption.category_name }}
-                </option>
-              </select>
-
-              <!-- icons -->
-              <div class="icons flex text-gray-500 m-2">
-                <svg
-                  class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-                <svg
-                  class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <svg
-                  class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  data-hs-overlay="#hs-modal-image"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-                  />
-                </svg>
-
+                  <option
+                    v-for="categoryOption in categoriesData"
+                    :key="categoryOption.id"
+                    :value="categoryOption.id"
+                  >
+                    {{ categoryOption.category_name }}
+                  </option>
+                </select>
+                <!-- icons -->
+                <div class="icons flex text-gray-500 m-2">
+                  <svg
+                    class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                  <svg
+                    class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <svg
+                    class="mr-2 cursor-pointer hover:text-gray-700 border rounded-full p-1 h-7"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    data-hs-overlay="#hs-modal-image"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                    />
+                  </svg>
+                </div>
                 <div class="count ml-auto text-gray-400 text-xs font-semibold">
                   {{ count }}/300
                 </div>
               </div>
+
               <!-- BUTTONS -->
               <!-- IF POST IS A DRAFT PUBLISH IS PRESENT-->
-              <div class="flex justify-end">
+              <div class="flex mt-4">
                 <div v-if="status === 'Draft' && !edit" class="flex">
                   <button
-                    class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500"
-                    @click="editState"
                     type="submit"
+                    class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
+                    @click="editState"
                   >
-                    Edit
+                    Cancel
                   </button>
+                  <!-- no logic yet-->
                   <button
                     class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500"
                     type="submit"
@@ -344,27 +349,28 @@
                 </div>
                 <div v-if="status === 'Publish' && !edit" class="self-end">
                   <button
-                    class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500"
-                    @click="editState"
                     type="submit"
+                    class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
+                    @click="editState"
                   >
                     Edit
                   </button>
                 </div>
-                <div v-if="edit" class="flex self-end">
+                <div v-if="edit" class="flex self-end gap-x-2">
                   <button
-                    class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500"
                     type="submit"
+                    class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
                     @click="cancelState"
                   >
                     Cancel
                   </button>
+
                   <button
-                    class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500"
                     type="submit"
+                    class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                     @click="updatePost"
                   >
-                    Submit
+                    Publish
                   </button>
                 </div>
                 <!-- BUTTONS END-->
