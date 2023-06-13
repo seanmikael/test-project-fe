@@ -1,0 +1,87 @@
+{
+  "_from": "preline@^1.8.0",
+  "_id": "preline@1.9.0",
+  "_inBundle": false,
+  "_integrity": "sha512-zvOexsDBood9gBAQYSwz7iY8TaomtRD0/qxvCnJl3caq5pif6frl8Oe4b4DsxHHD3Clzl4I5RmVKTq9XjMvNJA==",
+  "_location": "/preline",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "preline@^1.8.0",
+    "name": "preline",
+    "escapedName": "preline",
+    "rawSpec": "^1.8.0",
+    "saveSpec": null,
+    "fetchSpec": "^1.8.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/preline/-/preline-1.9.0.tgz",
+  "_shasum": "b872c9e0d472242cb6f019c329f1edaa0511596e",
+  "_spec": "preline@^1.8.0",
+  "_where": "/Users/adsi2226/Downloads/test-project-fe",
+  "author": {
+    "name": "Htmlstream"
+  },
+  "bugs": {
+    "url": "https://github.com/htmlstreamofficial/preline/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@popperjs/core": "^2.11.2"
+  },
+  "deprecated": false,
+  "description": "Preline UI is an open-source set of prebuilt UI components based on the utility-first Tailwind CSS framework.",
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "source-map-loader": "^3.0.1",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "homepage": "https://preline.co",
+  "keywords": [
+    "preline",
+    "html",
+    "css",
+    "javascript",
+    "tailwind",
+    "tailwind examples",
+    "tailwind components",
+    "tailwind components library",
+    "tailwind elements",
+    "tailwind library",
+    "tailwind sections",
+    "tailwind css",
+    "tailwind ui",
+    "tailwind css react",
+    "tailwind css nextjs",
+    "tailwind css vue",
+    "tailwind css nuxtjs",
+    "tailwind css angular",
+    "tailwind css astro",
+    "tailwind css solidjs",
+    "tailwind css qwik",
+    "tailwind css svelte",
+    "tailwind css remix",
+    "tailwind css laravel"
+  ],
+  "license": "MIT",
+  "main": "dist/preline.js",
+  "name": "preline",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htmlstreamofficial/preline.git"
+  },
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.9.0"
+}
