@@ -3,8 +3,7 @@
     <div
       class="flex flex-col bg-white border shadow-sm rounded-xl p-4 md:p-5 dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] dark:text-gray-400"
     >
-      <post-content :posts-data="postsData" @deleteHandler="deleteHandler" />
-      <post-delete-modal :delete-data="{ id: deleteData }" />
+      <post-content :posts-data="postsData" />
     </div>
   </div>
 </template>
@@ -23,7 +22,6 @@ export default {
       content: '',
       category: '',
       status: '',
-      deleteData: '',
     }
   },
   mounted() {
@@ -50,10 +48,6 @@ export default {
       } catch (err) {
         console.error(err)
       }
-    },
-
-    deleteHandler(data) {
-      this.deleteData = data.id
     },
   },
 }

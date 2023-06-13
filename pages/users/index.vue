@@ -12,7 +12,6 @@
 
     <user-create-modal />
     <user-update-modal :user-data="userData" />
-    <user-delete-modal :user-data="userData" />
   </div>
 </template>
 

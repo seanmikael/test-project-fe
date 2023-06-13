@@ -61,7 +61,9 @@
             <div class="flex items-center h-5">
               <input
                 id="hs-table-pagination-checkbox-1"
+                v-model="selectedUsers"
                 type="checkbox"
+                :value="user.id"
                 class="border-gray-200 rounded text-blue-600 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
               />
               <label for="hs-table-pagination-checkbox-1" class="sr-only"
@@ -114,7 +116,7 @@
             <button
               class="text-red-500"
               data-hs-overlay="#hs-danger-alert"
-              @click="$emit('deleteUser', user)"
+              @click="deleteHandler(user)"
             >
               Delete
             </button>
@@ -123,6 +125,11 @@
         <!-- Rest of the table rows -->
       </tbody>
     </table>
+
+    <user-delete-modal
+      :selected-users="selectedUsers"
+      :selected-user="selectedUser"
+    />
   </div>
 </template>
 
@@ -136,6 +143,18 @@ export default {
     usersData: {
       type: Array,
       required: true,
+    },
+  },
+  data() {
+    return {
+      selectedUsers: [],
+      selectedUser: 0,
+    }
+  },
+
+  methods: {
+    deleteHandler(user) {
+      this.selectedUser = user.id
     },
   },
 }

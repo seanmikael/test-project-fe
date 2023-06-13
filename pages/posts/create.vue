@@ -246,7 +246,7 @@ export default {
 
   methods: {
     publishPost() {
-      this.status = 'Publish'
+      this.status = 'Published'
       console.log('Category ID:', this.category)
     },
     savePost() {

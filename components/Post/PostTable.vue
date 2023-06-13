@@ -66,7 +66,9 @@
             <div class="flex items-center h-5">
               <input
                 id="hs-table-pagination-checkbox-1"
+                v-model="selectedPosts"
                 type="checkbox"
+                :value="post.id"
                 class="border-gray-200 rounded text-blue-600 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
               />
               <label for="hs-table-pagination-checkbox-1" class="sr-only"
@@ -81,7 +83,7 @@
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
             <nuxt-link
-              :to="`/posts/post/${post.id}`"
+              :to="`/posts/post?id=${post.id}`"
               class="text-sm text-blue-600 decoration-2 hover:cursor-pointer hover:underline dark:text-blue-500"
             >
               {{ post.title }}</nuxt-link
@@ -95,11 +97,21 @@
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
             <span
-              class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+              :class="{
+                'relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight':
+                  post.status === 'Published',
+                'relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight':
+                  post.status === 'Draft',
+              }"
             >
               <span
                 aria-hidden
-                class="'absolute inset-0 bg-green-200 opacity-50 rounded-full'"
+                :class="{
+                  'absolute inset-0 bg-green-200 opacity-50 rounded-full':
+                    post.status === 'Published',
+                  'absolute inset-0 bg-red-200 opacity-50 rounded-full':
+                    post.status === 'Draft',
+                }"
               ></span>
               <span class="relative"> {{ post.status }}</span>
             </span>
@@ -107,11 +119,7 @@
           <td
             class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
           >
-            <button
-              data-hs-overlay="#hs-danger-alert"
-              class="text-red-500"
-              @click="$emit('deletePost', post)"
-            >
+            <button data-hs-overlay="#hs-danger-alert" class="text-red-500">
               Delete
             </button>
           </td>
@@ -119,6 +127,8 @@
         <!-- Rest of the table rows -->
       </tbody>
     </table>
+
+    <post-delete-modal :selected-posts="selectedPosts" />
   </div>
 </template>
 
@@ -133,6 +143,11 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  data() {
+    return {
+      selectedPosts: [],
+    }
   },
 }
 </script>

@@ -57,8 +57,9 @@
               <h3
                 class="mb-2 text-xl font-bold text-gray-800 dark:text-gray-200"
               >
-                Delete Personal Account
+                Delete Account
               </h3>
+
               <p class="text-gray-500">
                 Permanently remove the account and all of its contents from the
                 platform. This action is irreversible, so please continue with
@@ -80,7 +81,7 @@
           </button>
           <a
             class="py-2.5 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent hover:cursor-pointer font-semibold bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-            @click="deleteUser"
+            @click="deleteUsers"
           >
             Delete
           </a>
@@ -94,37 +95,42 @@
 import axios from 'axios'
 export default {
   props: {
-    userData: {
-      type: Object,
+    selectedUsers: {
+      type: Array,
+      required: true,
+    },
+    selectedUser: {
+      type: Number,
       required: true,
     },
   },
-  computed: {
-    data() {
-      return {
-        id: this.userData.id,
-      }
-    },
-  },
   methods: {
-    async deleteUser() {
+    async deleteUsers() {
       try {
-        const res = await axios.delete(
-          `http://localhost:8000/api/user/${this.data.id}`
-        )
-
-        // Handle the response based on your application's logic
-        if (res.status === 200) {
-          // Update was successful
-          console.log('User updated successfully')
-          window.location.reload()
-        } else {
-          // Update failed
-          console.log('User update failed')
+        if (this.selectedUsers.length === 0 || !this.selectedUsers) {
+          const res = await axios.delete(
+            `http://localhost:8000/api/user/${this.selectedUser}`
+          )
+          if (res.status === 200) {
+            console.log(`Post ${this.selectedUser} deleted`)
+          } else {
+            console.log(`Post ${this.selectedUser} failed to delete`)
+          }
         }
-      } catch (error) {
-        // Handle any errors that occurred during the API call
-        console.error(error)
+
+        for (const userId of this.selectedUsers) {
+          const res = await axios.delete(
+            `http://localhost:8000/api/user/${userId}`
+          )
+          if (res.status === 200) {
+            console.log(`Post ${userId} deleted`)
+          } else {
+            console.log(`Post ${userId} failed to delete`)
+          }
+        }
+        window.location.reload()
+      } catch (err) {
+        console.log(err)
       }
     },
   },

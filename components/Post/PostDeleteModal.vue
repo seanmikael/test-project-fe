@@ -79,7 +79,7 @@
           </button>
           <a
             class="py-2.5 px-4 inline-flex justify-center hover:cursor-pointer items-center gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-            @click="deletePost"
+            @click="deletePosts"
           >
             Delete
           </a>
@@ -93,28 +93,25 @@
 import axios from 'axios'
 export default {
   props: {
-    deleteData: {
-      type: Object,
+    selectedPosts: {
+      type: Array,
       required: true,
     },
   },
-  computed: {
-    data() {
-      return {
-        id: this.deleteData.id,
-      }
-    },
-  },
   methods: {
-    async deletePost() {
+    async deletePosts() {
       try {
-        const res = await axios.delete(
-          `http://localhost:8000/api/posts/${this.data.id}`
-        )
-        if (res.status === 200) {
-          console.log('Post deleted')
-          window.location.reload()
-        } else console.log('Post failed to delete')
+        for (const postId of this.selectedPosts) {
+          const res = await axios.delete(
+            `http://localhost:8000/api/posts/${postId}`
+          )
+          if (res.status === 200) {
+            console.log(`Post ${postId} deleted`)
+          } else {
+            console.log(`Post ${postId} failed to delete`)
+          }
+        }
+        window.location.reload()
       } catch (err) {
         console.log(err)
       }

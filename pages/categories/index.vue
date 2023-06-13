@@ -12,7 +12,6 @@
 
     <category-create-modal />
     <category-update-modal :category-data="categoryData" />
-    <category-delete-modal :delete-data="{ id: deleteData }" />
   </div>
 </template>
 

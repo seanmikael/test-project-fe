@@ -50,7 +50,9 @@
             <div class="flex items-center h-5">
               <input
                 id="hs-table-pagination-checkbox-1"
+                v-model="selectedCategories"
                 type="checkbox"
+                :value="category.id"
                 class="border-gray-200 rounded text-blue-600 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
               />
               <label for="hs-table-pagination-checkbox-1" class="sr-only"
@@ -90,6 +92,8 @@
         <!-- Rest of the table rows -->
       </tbody>
     </table>
+
+    <category-delete-modal :selected-categories="selectedCategories" />
   </div>
 </template>
 
@@ -104,6 +108,11 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  data() {
+    return {
+      selectedCategories: [],
+    }
   },
 }
 </script>

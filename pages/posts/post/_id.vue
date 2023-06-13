@@ -125,12 +125,13 @@
               <button
                 class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500"
                 type="submit"
+                @click="publishPost"
               >
                 Publish
               </button>
             </div>
             <div
-              v-if="status === 'Publish' && !edit"
+              v-if="status === 'Published' && !edit"
               class="flex justify-end align-bottom items-start"
             >
               <button
@@ -209,7 +210,7 @@
               <span
                 :class="{
                   'inline-flex items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-blue-100 text-blue-800':
-                    status === 'Publish',
+                    status === 'Published',
                   'inline-flex items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-red-100 text-red-800':
                     status === 'Draft',
                 }"
@@ -339,15 +340,16 @@
                   >
                     Cancel
                   </button>
-                  <!-- no logic yet-->
+
                   <button
                     class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500"
+                    @click="publishPost"
                     type="submit"
                   >
                     Publish
                   </button>
                 </div>
-                <div v-if="status === 'Publish' && !edit" class="self-end">
+                <div v-if="status === 'Published' && !edit" class="self-end">
                   <button
                     type="submit"
                     class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
@@ -370,7 +372,7 @@
                     class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                     @click="updatePost"
                   >
-                    Publish
+                    Submit
                   </button>
                 </div>
                 <!-- BUTTONS END-->
@@ -381,7 +383,7 @@
         <div class="flex w-1/3">
           <div class="flex flex-col">
             <div
-              v-if="image_path"
+              v-if="image_path && !previewUrl"
               class="relative order-first md:order-last h-96 md:h-auto flex justify-center items-center border border-dashed border-gray-400 col-span-2 m-2 rounded-lg bg-no-repeat bg-center bg-origin-padding bg-cover"
             >
               <img
@@ -389,6 +391,13 @@
                 :src="getImageUrl(image_path)"
                 alt="Post Image"
               />
+            </div>
+
+            <div
+              v-if="previewUrl"
+              class="relative order-first md:order-last h-72 md:h-auto flex justify-center items-center border border-dashed border-gray-400 col-span-2 m-2 rounded-lg bg-no-repeat bg-center bg-origin-padding bg-cover"
+            >
+              <img :src="previewUrl" class="h-80 w-full" alt="Image Preview" />
             </div>
 
             <div
@@ -434,6 +443,7 @@ export default {
       content: '',
       category: '',
       categoryEdit: '',
+      categoryId: null,
       status: '',
       name: '',
       created_at: null,
@@ -441,6 +451,7 @@ export default {
       image_path: '',
       imageUrl: null,
       imageFile: null,
+      previewUrl: null,
     }
   },
   created() {
@@ -449,8 +460,7 @@ export default {
   },
   methods: {
     getImageUrl(imagePath) {
-      const baseUrl = 'http://localhost:8000/storage'
-      const imageUrl = `${baseUrl}/${imagePath}`
+      const imageUrl = `http://localhost:8000/storage/${imagePath}`
       console.log(imageUrl)
       return imageUrl
     },
@@ -458,6 +468,7 @@ export default {
     handleImageFileSelected(imageFile) {
       this.imageFile = imageFile
       this.imageUrl = URL.createObjectURL(this.imageFile)
+      this.previewUrl = URL.createObjectURL(this.imageFile)
     },
 
     handleImageUpload(event) {
@@ -468,12 +479,13 @@ export default {
     async getPosts() {
       try {
         const res = await axios.get(
-          `http://localhost:8000/api/posts/${this.$route.params.id}`
+          `http://localhost:8000/api/posts/${this.$route.query.id}`
         )
         const posts = res.data.post
         this.title = posts.title
         this.content = posts.content
         this.category = posts.category.category_name
+        this.categoryId = posts.category_id
         this.status = posts.status
         this.name = posts.user.name
         this.created_at = posts.created_at
@@ -516,7 +528,43 @@ export default {
         formData.append('category_id', this.categoryEdit)
 
         const res = await axios.post(
-          `http://localhost:8000/api/posts/${this.$route.params.id}?_method=PUT`,
+          `http://localhost:8000/api/posts/${this.$route.query.id}?_method=PUT`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        )
+
+        // Handle the response based on your application's logic
+        if (res.status === 200) {
+          // Update was successful
+          console.log('Post updated successfully')
+          window.location.reload()
+        } else {
+          // Update failed
+          console.log('Post update failed')
+        }
+      } catch (error) {
+        // Handle any errors that occurred during the API call
+        console.error(error)
+      }
+    },
+
+    async publishPost() {
+      try {
+        const formData = new FormData()
+        if (this.imageFile) {
+          formData.append('image', this.imageFile)
+        }
+        formData.append('title', this.title)
+        formData.append('content', this.content)
+        formData.append('status', 'Published')
+        formData.append('category_id', this.categoryId)
+
+        const res = await axios.post(
+          `http://localhost:8000/api/posts/${this.$route.query.id}?_method=PUT`,
           formData,
           {
             headers: {

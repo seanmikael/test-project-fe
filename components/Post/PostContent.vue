@@ -47,7 +47,6 @@
               @updatePost="$emit('updateHandler', $event)"
               @deletePost="$emit('deleteHandler', $event)"
             />
-
             <!-- Table for Published Posts-->
             <post-table
               :posts-data="published"
@@ -61,8 +60,8 @@
             <!-- Table for Drafts-->
             <post-table
               :posts-data="drafts"
-              class="hidden"
               id="pills-on-gray-color-3"
+              class="hidden"
               role="tabpanel"
               aria-labelledby="pills-on-gray-color-item-3"
               @updatePost="$emit('updateHandler', $event)"
@@ -124,7 +123,7 @@ export default {
       return this.postsData.filter((post) => post.status === 'Draft')
     },
     published() {
-      return this.postsData.filter((post) => post.status === 'Publish')
+      return this.postsData.filter((post) => post.status === 'Published')
     },
   },
 }

@@ -79,7 +79,7 @@
           </button>
           <a
             class="py-2.5 px-4 inline-flex justify-center hover:cursor-pointer items-center gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-            @click="deleteCategory"
+            @click="deleteCategories"
           >
             Delete
           </a>
@@ -93,33 +93,27 @@
 import axios from 'axios'
 export default {
   props: {
-    deleteData: {
-      type: Object,
+    selectedCategories: {
+      type: Array,
       required: true,
     },
   },
-  computed: {
-    data() {
-      return {
-        id: this.deleteData.id,
-      }
-    },
-  },
   methods: {
-    async deleteCategory() {
+    async deleteCategories() {
       try {
-        const res = await axios.delete(
-          `http://localhost:8000/api/categories/${this.data.id}`
-        )
-
-        if (res.status === 200) {
-          console.log('Category deleted')
-          window.location.reload()
-        } else {
-          console.log('Category deletion failed')
+        for (const categoryId of this.selectedCategories) {
+          const res = await axios.delete(
+            `http://localhost:8000/api/categories/${categoryId}`
+          )
+          if (res.status === 200) {
+            console.log(`Post ${categoryId} deleted`)
+          } else {
+            console.log(`Post ${categoryId} failed to delete`)
+          }
         }
-      } catch (error) {
-        console.error(error)
+        window.location.reload()
+      } catch (err) {
+        console.log(err)
       }
     },
   },
