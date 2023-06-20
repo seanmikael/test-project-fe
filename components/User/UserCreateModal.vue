@@ -97,57 +97,6 @@
                 </div>
                 <!-- End Form Group -->
 
-                <!-- Radio -->
-                <div>
-                  <div class="grid space-y-3">
-                    <div class="relative flex items-start">
-                      <div class="flex items-center h-5 mt-1">
-                        <input
-                          v-model="status"
-                          value="Active"
-                          name="hs-radio-with-description"
-                          type="radio"
-                          class="border-gray-200 rounded-full text-blue-600 focus:ring-blue-500"
-                          aria-describedby="hs-radio-delete-description"
-                        />
-                      </div>
-                      <label for="hs-radio-delete" class="ml-3">
-                        <span class="block text-sm font-semibold text-gray-800"
-                          >Active</span
-                        >
-                        <span
-                          id="hs-radio-delete-description"
-                          class="block text-sm text-gray-600"
-                          >Active users can login.</span
-                        >
-                      </label>
-                    </div>
-
-                    <div class="relative flex items-start">
-                      <div class="flex items-center h-5 mt-1">
-                        <input
-                          v-model="status"
-                          value="Inactive"
-                          name="hs-radio-with-description"
-                          type="radio"
-                          class="border-gray-200 rounded-full text-blue-600 focus:ring-blue-500"
-                          aria-describedby="hs-radio-archive-description"
-                        />
-                      </div>
-                      <label for="hs-radio-archive" class="ml-3">
-                        <span class="block text-sm font-semibold text-gray-800"
-                          >Inactive</span
-                        >
-                        <span
-                          id="hs-radio-archive-description"
-                          class="block text-sm text-gray-600"
-                          >Inactive users are unable to login.</span
-                        >
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
                 <button
                   type="submit"
                   class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"

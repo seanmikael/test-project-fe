@@ -97,10 +97,26 @@ export default {
       type: Array,
       required: true,
     },
+
+    selectedCategory: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
     async deleteCategories() {
       try {
+        if (this.selectedCategories.length === 0 || !this.selectedCategories) {
+          const res = await axios.delete(
+            `http://localhost:8000/api/categories/${this.selectedCategory}`
+          )
+          if (res.status === 200) {
+            console.log(`Post ${this.selectedCategory} deleted`)
+          } else {
+            console.log(`Post ${this.selectedCategory} failed to delete`)
+          }
+        }
+
         for (const categoryId of this.selectedCategories) {
           const res = await axios.delete(
             `http://localhost:8000/api/categories/${categoryId}`

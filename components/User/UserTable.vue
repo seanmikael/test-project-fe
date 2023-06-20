@@ -4,9 +4,6 @@
     <table
       v-if="usersData.length > 0"
       class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
-      id="pills-on-gray-color-3"
-      role="tabpanel"
-      aria-labelledby="pills-on-gray-color-item-3"
     >
       <thead class="bg-gray-50 dark:bg-slate-800">
         <tr>

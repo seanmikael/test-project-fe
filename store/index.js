@@ -47,7 +47,9 @@ const createStore = () => {
                 Number.parseInt(result.data.expires_in) * 1000
             )
           })
-          .catch((e) => console.log(e))
+          .catch((error) => {
+            throw error
+          })
       },
 
       initAuth(vuexContext, req) {

@@ -1,6 +1,6 @@
 <template>
   <main>
-    <the-form @login="login" />
+    <the-form :error-message="errorMessage" @login="login" />
   </main>
 </template>
 
@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       isLogin: true,
+      errorMessage: '',
     }
   },
   methods: {
@@ -21,6 +22,10 @@ export default {
         })
         .then(() => {
           this.$router.push('/')
+        })
+        .catch((error) => {
+          console.log(error)
+          this.errorMessage = error.response.data.error
         })
     },
   },

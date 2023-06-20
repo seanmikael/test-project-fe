@@ -4,9 +4,6 @@
     <table
       v-if="postsData.length > 0"
       class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
-      id="pills-on-gray-color-3"
-      role="tabpanel"
-      aria-labelledby="pills-on-gray-color-item-3"
     >
       <thead class="bg-gray-50 dark:bg-gray-700">
         <tr>
@@ -119,7 +116,11 @@
           <td
             class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
           >
-            <button data-hs-overlay="#hs-danger-alert" class="text-red-500">
+            <button
+              data-hs-overlay="#hs-danger-alert"
+              class="text-red-500"
+              @click="deleteHandler(post)"
+            >
               Delete
             </button>
           </td>
@@ -128,7 +129,10 @@
       </tbody>
     </table>
 
-    <post-delete-modal :selected-posts="selectedPosts" />
+    <post-delete-modal
+      :selected-posts="selectedPosts"
+      :selected-post="selectedPost"
+    />
   </div>
 </template>
 
@@ -147,7 +151,13 @@ export default {
   data() {
     return {
       selectedPosts: [],
+      selectedPost: 0,
     }
+  },
+  methods: {
+    deleteHandler(post) {
+      this.selectedPost = post.id
+    },
   },
 }
 </script>

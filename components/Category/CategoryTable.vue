@@ -83,7 +83,7 @@
             <button
               class="text-red-500"
               data-hs-overlay="#hs-danger-alert"
-              @click="$emit('deleteCategory', category)"
+              @click="deleteHandler(category)"
             >
               Delete
             </button>
@@ -93,7 +93,10 @@
       </tbody>
     </table>
 
-    <category-delete-modal :selected-categories="selectedCategories" />
+    <category-delete-modal
+      :selected-categories="selectedCategories"
+      :selected-category="selectedCategory"
+    />
   </div>
 </template>
 
@@ -112,7 +115,13 @@ export default {
   data() {
     return {
       selectedCategories: [],
+      selectedCategory: 0,
     }
+  },
+  methods: {
+    deleteHandler(category) {
+      this.selectedCategory = category.id
+    },
   },
 }
 </script>
