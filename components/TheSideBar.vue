@@ -256,7 +256,6 @@ export default {
   methods: {
     async handleLogout() {
       await this.logout()
-      // Redirect to the login page
       this.$router.push({ name: 'auth-login' })
     },
     ...mapActions('auth', ['logout']),

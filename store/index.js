@@ -84,13 +84,11 @@ const createStore = () => {
 
       async refreshAccessToken({ commit }) {
         try {
-          // Get the access token from the cookie
           const accessToken = Cookie.get('access_token')
           if (!accessToken) {
             throw new Error('Access token not found in cookie')
           }
 
-          // Send a POST request to refresh the access token
           const response = await axios.post(
             'http://localhost:8000/api/auth/refresh',
             null,
@@ -102,7 +100,6 @@ const createStore = () => {
           )
           const newAccessToken = response.data.access_token
 
-          // Update the access token in both the state and the cookie
           commit('SET_TOKEN', newAccessToken)
           Cookie.set('access_token', newAccessToken)
         } catch (error) {
@@ -111,16 +108,13 @@ const createStore = () => {
       },
 
       async logout(vuexContext) {
-        // Refresh the access token
         await vuexContext.dispatch('refreshAccessToken')
-        // Make an HTTP request to logout
         try {
           await axios.post('http://localhost:8000/api/auth/logout', null, {
             headers: {
               Authorization: `Bearer ${vuexContext.state.token}`,
             },
           })
-          // Proceed with logout
           vuexContext.commit('CLEAR_TOKEN')
           Cookie.remove('access_token')
           Cookie.remove('expirationDate')
@@ -129,17 +123,13 @@ const createStore = () => {
             localStorage.removeItem('tokenExpiration')
           }
         } catch (error) {
-          // Handle error
           console.error(error)
         }
       },
-      // fetch logged in user
       async fetchUser({ commit }) {
         try {
-          // Get the access token from the cookie
           const accessToken = Cookie.get('access_token')
           if (accessToken) {
-            // Perform API request to fetch user data using the access token
             const response = await axios.get(
               'http://localhost:8000/api/auth/user',
               {
@@ -148,15 +138,12 @@ const createStore = () => {
                 },
               }
             )
-            // Update the state with the fetched user data
             commit('SET_USER', response.data)
             console.log('Response data:', response.data)
           } else {
-            // No access token found, user is not logged in
             commit('SET_USER', null)
           }
         } catch (error) {
-          // Handle error while fetching user data
           console.error(error)
         }
       },

@@ -195,17 +195,13 @@ export default {
           }
         )
 
-        // Handle the response based on your application's logic
         if (res.status === 200) {
-          // Update was successful
           console.log('User updated successfully')
           window.location.reload()
         } else {
-          // Update failed
           console.log('User update failed')
         }
       } catch (error) {
-        // Handle any errors that occurred during the API call
         console.error(error)
       }
     },

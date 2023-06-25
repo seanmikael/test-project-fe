@@ -1,3 +1,5 @@
+<!-- Profile image of user posts are randomized -->
+
 <template>
   <div>
     <div
@@ -537,17 +539,13 @@ export default {
           }
         )
 
-        // Handle the response based on your application's logic
         if (res.status === 200) {
-          // Update was successful
           console.log('Post updated successfully')
           window.location.reload()
         } else {
-          // Update failed
           console.log('Post update failed')
         }
       } catch (error) {
-        // Handle any errors that occurred during the API call
         console.error(error)
       }
     },
@@ -573,17 +571,13 @@ export default {
           }
         )
 
-        // Handle the response based on your application's logic
         if (res.status === 200) {
-          // Update was successful
           console.log('Post updated successfully')
           window.location.reload()
         } else {
-          // Update failed
           console.log('Post update failed')
         }
       } catch (error) {
-        // Handle any errors that occurred during the API call
         console.error(error)
       }
     },

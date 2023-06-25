@@ -135,14 +135,3 @@ export default {
   },
 }
 </script>
-
-async deleteUsers() { try { if (this.selectedUsers.length === 0 ||
-!this.selectedUsers) { const res = await axios.delete(
-`http://localhost:8000/api/user/${this.selectedUser}` ) if (res.status === 200)
-{ console.log(`Post ${this.selectedUser} deleted`) } else { console.log(`Post
-${this.selectedUser} failed to delete`) } } for (const userId of
-this.selectedUsers) { const res = await axios.delete(
-`http://localhost:8000/api/user/${userId}` ) if (res.status === 200) {
-console.log(`Post ${userId} deleted`) } else { console.log(`Post ${userId}
-failed to delete`) } } window.location.reload() } catch (err) { console.log(err)
-} },
